@@ -6,10 +6,10 @@ pipeline {
                 sh 'docker image build --tag sample:sample - < Dockerfile'
                 sh 'ls'
             }
-            stage('Test') {
-                steps {
-                    sh 'microscope docker -pkgdb /home/opc/pkg.csv sample'
-                }
+        }
+        stage('Test') {
+            steps {
+                sh 'microscope docker -pkgdb /home/opc/pkg.csv sample'
             }
         }
     }
