@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'docker build - < Dockerfile'
+                sh 'docker iamge build - < Dockerfile'
                 sh 'ls'
             }
         }
