@@ -1,16 +1,17 @@
-pipeline {
+fpipeline {
     agent any
     stages {
         stage('build') {
             steps {
                 sh 'docker image build --tag sample:sample - < Dockerfile'
-                sh 'docker create sample:sample --name sample'
-                sh 'ls'
+                def containerName = sh('docker create sample:sample --name sample', returnStdout: true).trim()
+                println("container name: ${containerName}")
+                env.CONTAINER_NAME = containerName
             }
         }
         stage('Test') {
             steps {
-                sh 'microscope docker -pkgdb /var/microscope/pkg.csv sample'
+                sh 'microscope docker -pkgdb /var/microscope/pkg.csv ${containerName}'
             }
         }
     }
