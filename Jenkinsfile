@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'microscope docker-image -pkgdb /var/microscope/pkg.csv sample'
+                sh 'microscope docker -pkgdb /var/microscope/pkg.csv sample'
             }
         }
     }
