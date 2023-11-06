@@ -3,15 +3,17 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'docker image build --tag sample:sample - < Dockerfile'
-                def containerName = sh('docker create sample:sample --name sample', returnStdout: true).trim()
-                println("container name: ${containerName}")
-                env.CONTAINER_NAME = containerName
+                script {
+                    sh 'docker image build --tag sample:sample - < Dockerfile'
+                    def containerName = sh(script: 'docker create sample:sample --name sample', returnStdout: true).trim()
+                    println("container name: ${containerName}")
+                    env.CONTAINER_NAME = containerName
+                }
             }
         }
         stage('Test') {
             steps {
-                sh 'microscope docker -pkgdb /var/microscope/pkg.csv ${containerName}'
+                sh 'microscope docker -pkgdb /var/microscope/pkg.csv ${CONTAINER_NAME}'
             }
         }
     }
