@@ -4,6 +4,7 @@ pipeline {
         stage('build') {
             steps {
                 sh 'docker image build --tag sample:sample - < Dockerfile'
+                sh 'docker create sample'
                 sh 'ls'
             }
         }
